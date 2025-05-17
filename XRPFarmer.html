@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn Money via Ads</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://solseewuthi.net/sdk.js" data-zone="9339387" data-sdk="show_9339387"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background: #f0f8ff;
+        }
+        .earn-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        .balance {
+            font-size: 24px;
+            color: #2ecc71;
+            margin: 20px 0;
+        }
+        .watch-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="earn-box">
+        <div class="balance">Balance: $<span id="balance">0.00</span></div>
+        <button class="watch-btn" onclick="showRewardedAd()">Watch Ad → Earn $0.10</button>
+    </div>
+
+    <script>
+        // Telegram WebApp Initialization
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
+
+        let balance = 0;
+
+        // Rewarded Ad Function
+        function showRewardedAd() {
+            show_9339387()
+                .then(() => {
+                    balance += 0.10;
+                    document.getElementById('balance').textContent = balance.toFixed(2);
+                    tg.showAlert('Success! $0.10 added to your balance.');
+                })
+                .catch(() => {
+                    tg.showAlert('Please watch the full ad to earn.');
+                });
+        }
+
+        // Auto-Show Interstitial Ads
+        show_9339387({
+            type: 'inApp',
+            inAppSettings: {
+                frequency: 2,
+                capping: 0.1,
+                interval: 30,
+                timeout: 5,
+                everyPage: false
+            }
+        });
+    </script>
+</body>
+</html>
